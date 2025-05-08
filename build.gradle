@@ -1,0 +1,74 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.4.5'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.webflux'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    // Relacional bloqueante
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly   'com.h2database:h2'
+
+    // Mongo reativo/imperativo
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+
+    // WebFlux (reactivo).  Retire o starter web se for full‑reactive
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // Testes
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.projectreactor:reactor-test'
+    testImplementation 'com.h2database:h2'
+
+    //FLYWAY
+    implementation 'org.flywaydb:flyway-core:8.5.12'
+
+    //KAFKA
+    implementation 'org.springframework.kafka:spring-kafka:3.3.1'
+    implementation 'com.google.code.gson:gson:2.13.1'
+
+    // OPENAPI - SWAGGER
+    implementation "org.springdoc:springdoc-openapi-starter-webflux-ui:2.0.2"
+    implementation "org.springdoc:springdoc-openapi-starter-webflux-api:2.0.2"
+    implementation "org.springframework.integration:spring-integration-jms"
+
+    //auth
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'com.h2database:h2'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.projectreactor:reactor-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
